@@ -1,20 +1,30 @@
-use std::time::SystemTime;
+//! Block implement of blockchain
 
+use super::*;
+use crate::transaction::Transaction;
+use bincode::serialize;
+use crypto::digest::Digest;
+use crypto::sha2::Sha256;
+use merkle_cbt::merkle_tree::Merge;
+use merkle_cbt::merkle_tree::CBMT;
+use serde::{Deserialize, Serialize};
+use std::time::SystemTime;
+use log::info;
+
+const TARGET_HEXS: usize = 4;
+
+/// Block keeps block headers
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Block {
     timestamp: u128,
-    transactions: String,
-    prev_blocck_hash: String,
+    transactions: Vec<Transaction>,
+    prev_block_hash: String,
     hash: String,
-    height: usize,
     nonce: i32,
-}
-
-pub struct Blockchain {
-    blocks: Vec<Block>
+    height: i32,
 }
 
 impl Block {
-
     pub fn get_hash(&self) -> String {
         self.hash.clone()
     }
@@ -101,5 +111,20 @@ impl Block {
         let mut vec1: Vec<u8> = Vec::new();
         vec1.resize(TARGET_HEXS, '0' as u8);
         Ok(&hasher.result_str()[0..TARGET_HEXS] == String::from_utf8(vec1)?)
+    }
+}
+
+struct MergeVu8 {}
+
+impl Merge for MergeVu8 {
+    type Item = Vec<u8>;
+    fn merge(left: &Self::Item, right: &Self::Item) -> Self::Item {
+        let mut hasher = Sha256::new();
+        let mut data: Vec<u8> = left.clone();
+        data.append(&mut right.clone());
+        hasher.input(&data);
+        let mut re: [u8; 32] = [0; 32];
+        hasher.result(&mut re);
+        re.to_vec()
     }
 }
