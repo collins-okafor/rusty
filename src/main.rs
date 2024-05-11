@@ -1,15 +1,22 @@
+use crate::cli::Cli;
+use crate::errors::Result;
+
 mod block;
-mod blockchain;
-mod test;
+
 mod errors;
+mod blockchain;
 mod cli;
 mod transaction;
+mod wallets;
+mod tx;
+mod utxoset;
+mod server;
 
-fn main() {
-    let mut v: Vec<i32> = Vec::new();
-    v.push(1);
-    v.push(2);
-    v.push(3);
-    v.push(4);
-    println!("{:?}", v);
+
+fn main()->Result<()> {
+    let mut cli = Cli::new()?;
+    cli.run()?;
+
+    Ok(())
+
 }
