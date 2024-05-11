@@ -1,5 +1,9 @@
 mod block;
 mod blockchain;
+mod test;
+mod errors;
+mod cli;
+mod transaction;
 
 fn main() {
     let mut v: Vec<i32> = Vec::new();
