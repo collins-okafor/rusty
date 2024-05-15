@@ -2,7 +2,6 @@
 
 use super::*;
 use bincode::{deserialize, serialize};
-use bitcoincash_addr::*;
 use crypto::digest::Digest;
 use crypto::ed25519;
 use crypto::ripemd160::Ripemd160;
@@ -45,6 +44,7 @@ impl Wallet {
             hash_type: HashType::Script,
             ..Default::default()
         };
+        // Base58 removes 0 O 1 I
         address.encode().unwrap()
     }
 }

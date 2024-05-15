@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use bitcoincash_addr::Address;
 use failure::format_err;
 use log::debug;
 use serde::{Serialize, Deserialize};

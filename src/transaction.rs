@@ -3,8 +3,8 @@
 use super::*;
 use crate::utxoset::*;
 use crate::wallets::*;
+use bdk::Wallet;
 use bincode::serialize;
-use bitcoincash_addr::Address;
 use crypto::digest::Digest;
 use crypto::ed25519;
 use crypto::sha2::Sha256;

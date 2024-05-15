@@ -7,10 +7,12 @@ mod errors;
 mod blockchain;
 mod cli;
 mod transaction;
-mod wallets;
 mod tx;
 mod utxoset;
 mod server;
+mod wallet;
+mod server;
+mod utxoset;
 
 
 fn main()->Result<()> {

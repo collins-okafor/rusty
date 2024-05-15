@@ -1,5 +1,4 @@
 use std::process::exit;
-use bitcoincash_addr::Address;
 use clap::{arg, Command};
 use crate::blockchain::Blockchain;
 use crate::errors::Result;
